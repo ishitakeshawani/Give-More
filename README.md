@@ -1,5 +1,5 @@
 ## Give More:- An Charity/Donation App
-ScreenShots
+##you can download app from above apk-release.apk file.
 
 <table>
   <tr>
