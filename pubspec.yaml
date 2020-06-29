@@ -28,7 +28,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter_icons:
+  flutter_icons: ^1.1.0
   android: 'launcher_icon'
   image_path: 'images/mylogo1.png'
 
@@ -36,42 +36,7 @@ flutter:
   uses-material-design: true
 
   assets:
-  - images/one.jpg
-  - images/edu.jpg
-  - images/senior.jpg
-  - images/blood.jpg
-  - images/clothes1.jpg
-  - images/food.jpg
-  - images/wash.jpg
-  - images/ce2.jpg
-  - images/ce6.png
-  - images/ce4.jpg
-  - images/ce5.jpg
-  - images/ce7.jpg
-  - images/ce8.jpg
-  - images/ce9.png
-  - images/ce10.jpg
-  - images/ce1.jpg
-  - images/ce3.jpg
-  - images/PicsArt_05-29-01.32.33.png
-  - images/b1.jpg
-  - images/b2.png
-  - images/b3.jpg
-  - images/b4.jpg
-  - images/b5.jpg
-  - images/b6.jpg
-  - images/b7.png
-  - images/a1.jpg
-  - images/a2.jpg
-  - images/a3.jpg
-  - images/a4.jpg
-  - images/a5.jpg
-  - images/a6.jpg
-  - images/a7.jpg
-  - images/mylogo1.png
-  - images/d1.jpg
-  - images/d2.png
-
+  - images/
 
   fonts:
     - family: Dancing Script

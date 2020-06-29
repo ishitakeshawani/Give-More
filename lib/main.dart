@@ -8,19 +8,20 @@ class FlashChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: LoginScreen(),
-        debugShowCheckedModeBanner: false,
-        initialRoute: LoginScreen.id,
-        routes: {
-          LoginScreen.id: (context) => LoginScreen(),
-          RegistrationScreen.id: (context) => RegistrationScreen(),
-          HomePage.id: (context) => HomePage(),
-          Education.id: (context) => Education(),
-          SeniorPage.id: (context) => SeniorPage(),
-          Article.id: (context) => Article(),
-          Ehelp.id: (context) => Ehelp(),
-          Clothes.id: (context) => Clothes(),
-          Health.id: (context) => Health(),
-        });
+      debugShowCheckedModeBanner: false,
+      initialRoute: "/",
+      routes: {
+        "/": (context) => InitalScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
+        RegistrationScreen.id: (context) => RegistrationScreen(),
+        HomePage.id: (context) => HomePage(),
+        Education.id: (context) => Education(),
+        SeniorPage.id: (context) => SeniorPage(),
+        Article.id: (context) => Article(),
+        Ehelp.id: (context) => Ehelp(),
+        Clothes.id: (context) => Clothes(),
+        Health.id: (context) => Health(),
+      },
+    );
   }
 }
