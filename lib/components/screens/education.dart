@@ -1,10 +1,13 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:flutter/services.dart';
-
 
 class Education extends StatefulWidget {
   static const String id = 'education';
@@ -16,9 +19,21 @@ class _EducationState extends State<Education> {
   static int totalAmount = 0;
   Razorpay _razorpay;
   int selectedRadio;
+  final List<String> orgs = [
+    "Rise and Shine",
+    "The Youngsters",
+    "The Developing Youth",
+    "Reach For The Stars",
+    "Shiksha",
+    "Educate The Country",
+    "Academy Center",
+    "Learnology",
+    "Education For All",
+    "Quest Kids",
+  ];
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     selectedRadio = 0;
     _razorpay = Razorpay();
@@ -26,293 +41,192 @@ class _EducationState extends State<Education> {
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
-  setSelectedRadio(int val){
+
+  setSelectedRadio(int val) {
     setState(() {
       selectedRadio = val;
-
     });
   }
+
   @override
-  void dispose(){
-    super.dispose();
+  void dispose() {
     _razorpay.clear();
+    super.dispose();
   }
-void openCheckout() async {
-  var options = {
-    'key': 'rzp_test_a7AJBgKRKYFzzc' ,
-    'amount': totalAmount * 100 ,
-    'name': 'Test Purpose' ,
-    'description': 'test payment' ,
-    'prefill': {
-      'contact': '' ,
-      'email': ' '
-    } ,
-    'external': {
-      'wallets': ['paytm']
+
+  void openCheckout() async {
+    var options = {
+      'key': 'rzp_test_a7AJBgKRKYFzzc',
+      'amount': totalAmount * 100,
+      'name': 'Test Purpose',
+      'description': 'test payment',
+      'prefill': {'contact': '', 'email': ' '},
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint(e);
     }
-  };
-  try{
-    _razorpay.open(options);
   }
-  catch(e){
-    debugPrint(e);
-  }
-}
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    Fluttertoast.showToast(msg: "SUCESS: "+response.paymentId);
+    Fluttertoast.showToast(msg: "SUCESS: " + response.paymentId);
   }
-  void _handlePaymentError(PaymentFailureResponse response) {
-    Fluttertoast.showToast(msg: 'ERROR: '+response.code.toString()+" - "+ response.message);
 
+  void _handlePaymentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(
+        msg: 'ERROR: ' + response.code.toString() + " - " + response.message);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
-   Fluttertoast.showToast(msg: "EXTERNAL WALLET  "+response.walletName);
+    Fluttertoast.showToast(msg: "EXTERNAL WALLET  " + response.walletName);
   }
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-
+      key: _scaffoldKey,
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
-        leading: IconButton(icon: Icon(Icons.home) ,
-            iconSize: 30.0,
-            onPressed: () => Navigator.of(context).pop(),
+        elevation: 0,
+        backgroundColor: Theme.of(context).accentColor,
+        leading: IconButton(
+          icon: Icon(FlutterIcons.ios_arrow_back_ion),
+          color: Colors.white.withOpacity(0.8),
+          iconSize: 30.0,
+          onPressed: () => Navigator.of(context).pop(),
         ),
-
-        title:Text(
+        title: Text(
           'Organizations',
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'Dancing Script',
+          style: GoogleFonts.acme(
+            color: Colors.white.withOpacity(0.9),
             fontWeight: FontWeight.bold,
-            fontSize: 40.0,
+            fontSize: 30.0,
           ),
-          textAlign: TextAlign.center,
-        ) ,
+        ),
+        centerTitle: true,
       ),
-      body:SingleChildScrollView(
-        child: Padding(
-            padding: const EdgeInsets.fromLTRB(0.0, 0.5, 0.0, 0.5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                RadioListTile(
-                  value: 1,
-                  groupValue: selectedRadio,
-                  title: Text("Rise and Shine",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-                  },
-                ),
-                Divider(
-                color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 2,
-                  groupValue: selectedRadio,
-                  title: Text("The Youngsters",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 3,
-                  groupValue: selectedRadio,
-                  title: Text("The Developing Youth",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 4,
-                  groupValue: selectedRadio,
-                  title: Text("Reach For The Stars",style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 5,
-                  groupValue: selectedRadio,
-                  title: Text("Shiksha",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 6,
-                  groupValue: selectedRadio,
-                  title: Text("Educate The Country",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 7,
-                  groupValue: selectedRadio,
-                  title: Text("Education For All",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 8,
-                  groupValue: selectedRadio,
-                  title: Text("Academy Center",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 9,
-                  groupValue: selectedRadio,
-                  title: Text("Quest Kids",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-                RadioListTile(
-                  value: 10,
-                  groupValue: selectedRadio,
-                  title: Text("Learnology",style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0
-                  ),),
-                  activeColor: Colors.blue,
-                  onChanged: (val){
-                    setSelectedRadio(val);
-
-                  },
-                ),
-                Divider(
-                  color: Colors.blue,
-                ),
-             SizedBox(
-               height: 10.0,
-             ),
-             TextField(
-
-                    keyboardType: TextInputType.number,
-                    textAlign: TextAlign.center,
-                    decoration: InputDecoration(
-                      hintText: 'Please Enter Amount' ,
-                      contentPadding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 20.0),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.lightBlueAccent,width: 2.0
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      )
-
-
-                    ),
-                    onChanged: (value){
-                      setState(() {
-                        totalAmount = num.parse(value);
-                      });
-                    },
+      body: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        itemCount: orgs.length,
+        itemBuilder: (context, index) =>
+            buildRadioListTile(orgs[index], index + 1),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          FlutterIcons.payment_mdi,
+          color: Colors.white.withOpacity(0.9),
+        ),
+        onPressed: () {
+          _scaffoldKey.currentState.showBottomSheet(
+            (context) => Material(
+              borderRadius: BorderRadius.circular(20),
+              elevation: 8,
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 1.5, sigmaY: 1.5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xfff4f6ff),
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                SizedBox(
-                  height: 15.0,
+                  height: 400,
+                  child: buildPaymentBar(),
                 ),
-                RaisedButton(
-                  color: Colors.cyan,
-                  child: Text(
-                    'Donate Now',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Dancing Script',
-                    ),
-                  ),
-                  onPressed: (){
-                  openCheckout();
-                  },
-                ),
-
-              ],
-            )
-          ),
+              ),
+              color: Colors.transparent,
+            ),
+          );
+        },
+        backgroundColor: Color(0xffffbcbc),
       ),
     );
+  }
 
+  Widget buildPaymentBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextField(
+            keyboardType: TextInputType.number,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.acme(fontSize: 50, color: Colors.black54),
+            decoration: InputDecoration.collapsed(
+                hintText: 'Enter Amount',
+                hintStyle: GoogleFonts.acme(
+                  fontSize: 50,
+                )),
+            onChanged: (value) {
+              setState(() {
+                totalAmount = num.parse(value);
+              });
+            },
+          ),
+          SizedBox(
+            height: 15.0,
+          ),
+          RaisedButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            elevation: 10,
+            color: Theme.of(context).accentColor,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                'Donate Now',
+                style: GoogleFonts.acme(
+                  color: Colors.white.withOpacity(0.9),
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            onPressed: () {
+              openCheckout();
+            },
+          ),
+        ],
+      ),
+    );
+  }
 
-
-
-
+  Widget buildRadioListTile(String name, int value) {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(
+          020,
+        ),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 8),
+            blurRadius: 16,
+            color: Colors.black26,
+          )
+        ],
+      ),
+      child: RadioListTile(
+        value: value,
+        groupValue: selectedRadio,
+        title: Text(
+          name,
+          style: GoogleFonts.acme(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
+              color: Colors.black87),
+        ),
+        activeColor: Theme.of(context).primaryColor,
+        onChanged: (val) {
+          setSelectedRadio(val);
+        },
+      ),
+    );
   }
 }

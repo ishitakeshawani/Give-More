@@ -63,10 +63,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   key: _registrationformKey,
                   child: Column(
                     children: [
-                      TextFormField( keyboardType: TextInputType.emailAddress,
-                        onSaved: (value) {
-                          email = value;
-                        },
+                      TextFormField(
                         validator: (value) {
                           final isValidEmail = RegExp(
                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -77,6 +74,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             return "Please enter a valid email";
                           else
                             return null;
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        onSaved: (value) {
+                          email = value;
                         },
                         decoration: InputDecoration(
                             hintText: 'Enter your Email',

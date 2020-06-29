@@ -22,6 +22,10 @@ class FlashChat extends StatelessWidget {
         Clothes.id: (context) => Clothes(),
         Health.id: (context) => Health(),
       },
+      theme: ThemeData(
+        primaryColor: Color(0xFF5B86E5),
+        accentColor: Color(0xff99d8d0),
+      ),
     );
   }
 }

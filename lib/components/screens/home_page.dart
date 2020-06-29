@@ -1,16 +1,13 @@
 import 'package:flash_chat/components/screens/clothes.dart';
+import 'package:flash_chat/components/screens/ehelp.dart';
+import 'package:flash_chat/components/screens/exportsScreens.dart';
 import 'package:flash_chat/components/screens/health.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'exportsScreens.dart';
-import 'reusable_card.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../reusable_card.dart';
 import 'package:flash_chat/components/screens/education.dart';
-import 'seniorpage.dart';
-import 'article.dart';
-import 'ehelp.dart';
 import 'health.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 
 class HomePage extends StatefulWidget {
   static const String id = 'home_page';
@@ -19,200 +16,75 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  final _auth = FirebaseAuth.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-     
+      backgroundColor: Theme.of(context).accentColor,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: Text(
-          'Give More'
-        ),
-        actions:<Widget> [
-          IconButton(
-              icon: Icon(Icons.cancel),
-              onPressed:(){
-                Navigator.pushNamed(context, LoginScreen.id);
-              }),
-    ],
-
-          ),
-
-
-
-
-      body: SingleChildScrollView(
-        padding:EdgeInsets.symmetric(vertical:10.0),
+        backgroundColor: Theme.of(context).accentColor,
+        elevation: 0,
+        centerTitle: true,
+        leading: Container(),
+      ),
+      body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-
-            Row(
-              children: <Widget>[
-              Expanded(
-                child: ReusableCard(
-                  onPress: (
-                      ){
-                    Navigator.pushNamed(context, Education.id);
-                  },
-                  colour: Colors.white,
-                  image: DecorationImage(
-                    image: AssetImage('images/edu.jpg',
-                    ),
-                    fit: BoxFit.fitWidth,
-                  ),
-                cardchild: Stack(
-                      children: <Widget>[
-                      Positioned(
-                        left: 40.0,
-                        bottom: 0.0,
-                        child: Text(
-                          'Education',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Dancing Script',
-                              decoration: TextDecoration.none,
-                              fontSize: 20.0
-                            ),
-                        ),
-                      )
-                    ],
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(left: 22.0),
+              child: Text(
+                "Where you want to Give More?",
+                style: GoogleFonts.acme(
+                  fontSize: 45,
+                  color: Colors.white.withOpacity(0.9),
                 ),
-
               ),
-                Expanded(
-                  child: ReusableCard(
-                    onPress: (){
-                      Navigator.pushNamed(context, Health.id);
-                    },
-                    colour: Colors.white10,
-                    image: DecorationImage(
-                      image: AssetImage('images/blood.jpg',
-                      ),
-                      fit: BoxFit.fitWidth,
-                    ),
-                  ),
-                ),
-              ],
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: ReusableCard(
-                    onPress: (){
-                      Navigator.pushNamed(context,Ehelp.id);
-                    },
-                    colour: Colors.blueGrey,
-                    image: DecorationImage(
-                      image: AssetImage('images/food.jpg'),
-                      fit: BoxFit.cover,
-                    ),
+            SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: <Widget>[
+                  ReusableCard(
+                    time: 1,
+                    image: 'images/edu.jpg',
+                    nextChild: Education(),
                   ),
-                ),
-                Expanded(
-                  child: ReusableCard(
-                    onPress: (){
-                      Navigator.pushNamed(context,Clothes.id);},
-                    colour: Colors.white10,
-                    image: DecorationImage(
-                      image: AssetImage('images/clothes1.jpg',
-                      ),
-                    
-                    ),
-                  cardchild: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        left: 10.0,
-                        bottom: 0.0,
-                        child: Text(
-                          'Clothing Donation',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Dancing Script',
-                              decoration: TextDecoration.none,
-                              fontSize: 20.0
-                          ),
-                        ),
-                      )
-                    ],
+                  ReusableCard(
+                    time: 2,
+                    image: 'images/blood.jpg',
+                    nextChild: Health(),
                   ),
-                ),
-
-                ),
-
-              ],
+                  ReusableCard(
+                    time: 3,
+                    image: 'images/food.jpg',
+                    nextChild: Ehelp(),
+                  ),
+                ],
+              ),
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: ReusableCard(
-                    onPress: (){
-                      Navigator.pushNamed(context, Article.id);
-                    },
-                    colour: Colors.white,
-                    image: DecorationImage(
-                      image: AssetImage('images/wash.jpg'),
-                      
-                    ),
-                    cardchild: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          left: 10.0,
-                          bottom: 0.0,
-                          child: Text(
-                            'Mask & Senitizer',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Dancing Script',
-                                decoration: TextDecoration.none,
-                                fontSize: 20.0
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+            SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: <Widget>[
+                  ReusableCard(
+                    time: 4,
+                    image: 'images/clothes1.jpg',
+                    nextChild: Clothes(),
                   ),
-
-                ),
-
-                Expanded(
-                  child: ReusableCard(
-                    onPress: (){
-                      Navigator.pushNamed(context, SeniorPage.id);
-                    },
-                    colour: Colors.white,
-                    image: DecorationImage(
-                      image: AssetImage('images/senior.jpg'),
-                    
-            
-                      
-                    ),
-                    cardchild: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          left: 30.0,
-                          bottom: 0.0,
-                          child: Text(
-                            'Old-age Home',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Dancing Script',
-                                decoration: TextDecoration.none,
-                                fontSize: 20.0
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                  ReusableCard(
+                    time: 5,
+                    image: 'images/wash.jpg',
+                    nextChild: Article(),
                   ),
-                ),
-
-              ],
+                  ReusableCard(
+                      time: 6,
+                      image: 'images/senior.jpg',
+                      nextChild: SeniorPage()),
+                ],
+              ),
             ),
           ],
         ),
