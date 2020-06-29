@@ -1,3 +1,4 @@
+export './initalScreen.dart';
 export './article.dart';
 export './education.dart';
 export './home_page.dart';

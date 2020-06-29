@@ -49,110 +49,113 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(top: 100.0, left: 50, right: 20.0),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              keyboardType: TextInputType.emailAddress,
-                              onSaved: (value) {
-                                email = value;
-                              },
-                              decoration: InputDecoration(
-                                  hintText: 'Enter your Email',
-                                  hintStyle: TextStyle(fontSize: 20.0),
-                                  suffixIcon: Icon(Icons.email),
-                                  contentPadding:
-                                      EdgeInsets.only(top: 20.0, left: 20.0),
-                                  fillColor: Colors.white),
-                            ),
-                            SizedBox(
-                              height: 50.0,
-                            ),
-                            TextFormField(
-                              obscureText: obsecureText,
-                              onSaved: (value) {
-                                password = value;
-                              },
-                              decoration: InputDecoration(
-                                  hintText: 'Enter your Password',
-                                  hintStyle: TextStyle(fontSize: 20.0),
-                                  suffixIcon: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        if (obsecureText)
-                                          obsecureText = false;
-                                        else
-                                          obsecureText = true;
-                                      });
-                                    },
-                                    child: Icon(Icons.vpn_key),
-                                  ),
-                                  contentPadding: EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 20.0),
-                                  fillColor: Colors.white),
-                            ),
-                          ],
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          onSaved: (value) {
+                            email = value;
+                          },
+                          validator: (value) {
+                            final validEmail = RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
+                            if (!validEmail.hasMatch(value)) {
+                              return "Please enter valid email";
+                            } else {
+                              return null;
+                            }
+                          },
+                          decoration: InputDecoration(
+                              hintText: 'Enter your Email',
+                              hintStyle: TextStyle(fontSize: 20.0),
+                              suffixIcon: Icon(Icons.email),
+                              contentPadding:
+                                  EdgeInsets.only(top: 20.0, left: 20.0),
+                              fillColor: Colors.white),
                         ),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 50.0,
+                        ),
+                        TextFormField(
+                          obscureText: obsecureText,
+                          onSaved: (value) {
+                            password = value;
+                          },
+                          decoration: InputDecoration(
+                              hintText: 'Enter your Password',
+                              hintStyle: TextStyle(fontSize: 20.0),
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    if (obsecureText)
+                                      obsecureText = false;
+                                    else
+                                      obsecureText = true;
+                                  });
+                                },
+                                child: Icon(Icons.vpn_key),
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 20.0),
+                              fillColor: Colors.white),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(height: 40.0),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RoundedButton(
-                      title: 'Log In',
-                      minWidth: 150.0,
-                      onPressed: () async {
-                        _formKey.currentState.save();
-                        setState(() {
-                          showLoading = true;
-                        });
-                        try {
-                          final user = await _auth.signInWithEmailAndPassword(
-                              email: email, password: password);
-
-                          if (user != null) {
-                            setState(() {
-                              showLoading = false;
-                            });
-                            Navigator.pushNamed(context, HomePage.id);
-                          }
-                        } catch (e) {
-                          print(e);
-                        }
-                      },
+                RoundedButton(
+                  title: 'Log In',
+                  minWidth: 150.0,
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      _formKey.currentState.save();
+                      setState(() {
+                        showLoading = true;
+                      });
+                      doLoging();
+                      FocusScope.of(context).unfocus();
+                    }
+                  },
+                ),
+                SizedBox(
+                  height: 100,
+                ),
+                Container(
+                  height: 2,
+                  width: MediaQuery.of(context).size.width - 80,
+                  color: Colors.black38,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (context) => RegistrationScreen(),
+                      ),
+                    );
+                  },
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(text: "New here?"),
+                        TextSpan(
+                            text: " Sing up",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ],
                     ),
-                    SizedBox(height: 100.0),
-                    Text(
-                      'Sign Up for New Account',
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    RoundedButton(
-                      title: 'Sign Up',
-                      minWidth: 150.0,
-                      onPressed: () async {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => RegistrationScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                    SizedBox(height: 20.0),
-                  ],
+                    style: TextStyle(fontSize: 20.0, color: Colors.blue),
+                  ),
                 ),
               ],
             ),
@@ -168,5 +171,21 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void doLoging() async {
+    try {
+      final user = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      if (user != null) {
+        setState(() {
+          showLoading = false;
+        });
+        Navigator.pushNamed(context, HomePage.id);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
