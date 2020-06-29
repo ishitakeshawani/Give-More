@@ -13,7 +13,7 @@
         android:label="Give More"
         android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="your_key"/>
+            android:value="AIzaSyBcEbdHFhBznQqB4oKGNMFZinTKV6Ia3j4"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
