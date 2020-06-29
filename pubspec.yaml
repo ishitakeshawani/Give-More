@@ -10,7 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   google_maps_flutter: ^0.5.28+1
-  flutter_launcher_icons: ^0.7.3
+  
 
 
   cupertino_icons: ^0.1.2
@@ -27,8 +27,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.7.3
 
-  flutter_icons: ^1.1.0
+flutter_icons:
   android: 'launcher_icon'
   image_path: 'images/mylogo1.png'
 
