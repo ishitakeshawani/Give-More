@@ -1,0 +1,10 @@
+export './initalScreen.dart';
+export './article.dart';
+export './education.dart';
+export './home_page.dart';
+export './seniorpage.dart';
+export './login_screen.dart';
+export './registration_screen.dart';
+export './ehelp.dart';
+export './clothes.dart';
+export './health.dart';
