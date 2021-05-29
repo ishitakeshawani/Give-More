@@ -86,7 +86,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             contentPadding:
                                 EdgeInsets.only(top: 20.0, left: 20.0),
                             fillColor: Colors.white),
-                        onChanged: (value){
+                        onChanged: (value) {
                           email = value;
                         },
                       ),
@@ -115,7 +115,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 20.0),
                             fillColor: Colors.white),
-                        onChanged: (value){
+                        onChanged: (value) {
                           password = value;
                         },
                       ),
@@ -140,7 +140,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       }
                     } catch (e) {
                       print(e);
-                      _scaffoldKey.currentState.showSnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Email is not exist!")));
                     }
                 },

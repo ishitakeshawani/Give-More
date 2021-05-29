@@ -145,6 +145,12 @@ class _ArticleState extends State<Article> {
   }
 
   Widget buildPaymentBar() {
+    final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+      elevation: 10,
+      onPrimary: Theme.of(context).accentColor,
+      primary: Colors.grey[300],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
       child: Column(
@@ -168,11 +174,8 @@ class _ArticleState extends State<Article> {
           SizedBox(
             height: 15.0,
           ),
-          RaisedButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            elevation: 10,
-            color: Theme.of(context).accentColor,
+          ElevatedButton(
+            style: raisedButtonStyle,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(

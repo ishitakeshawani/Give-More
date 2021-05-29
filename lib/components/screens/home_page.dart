@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/components/screens/clothes.dart';
 import 'package:flash_chat/components/screens/ehelp.dart';
 import 'package:flash_chat/components/screens/exportsScreens.dart';
@@ -17,9 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,36 +26,37 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         leading: Container(),
         actions: [
-          FlatButton(
-             onPressed: () {
-    showDialog<void>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-    return CupertinoAlertDialog(
-    title: Text('Do you want to logout?'),
-    actions: <Widget>[
-    CupertinoDialogAction(
-    child: Text('Yes'),
-    onPressed: () {
-      Navigator.pushNamed(context, LoginScreen.id);
-    },
-    ),
-    CupertinoDialogAction(
-    child: Text('No'),
-    onPressed: () {
-    Navigator.of(context).pop();
-    },
-    ),
-    ],
-    );
-    },
-    );
-    },
-            child: Icon(Icons.close,
-            color: Colors.white,),
+          TextButton(
+            onPressed: () {
+              showDialog<void>(
+                context: context,
+                barrierDismissible: false, // user must tap button!
+                builder: (BuildContext context) {
+                  return CupertinoAlertDialog(
+                    title: Text('Do you want to logout?'),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                        child: Text('Yes'),
+                        onPressed: () {
+                          Navigator.pushNamed(context, LoginScreen.id);
+                        },
+                      ),
+                      CupertinoDialogAction(
+                        child: Text('No'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
           ),
-
         ],
       ),
       body: SingleChildScrollView(
